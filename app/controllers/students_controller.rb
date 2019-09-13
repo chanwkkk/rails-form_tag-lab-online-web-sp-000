@@ -12,13 +12,14 @@ class StudentsController < ApplicationController
   end
 
   def create
-    @student=Student.create(user_params)
-    redirect_to '/students'
+    session[:form_params] = params.inspect
+    redirect_to new_student_path
   end
 
   private
 
- def user_params
-   params.require(:student).permit(:first_name, :last_name)
- end
+    def set_student
+      @student = Student.find(params[:id])
+    end
+end
 end
